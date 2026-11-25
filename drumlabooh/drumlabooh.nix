@@ -30,11 +30,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "drumlabooh";
-  version = "12.2.0";
+  version = "13.0.0";
 
   src = fetchzip {
     url = "https://github.com/psemiletov/drumlabooh/archive/refs/tags/${version}.tar.gz";
-    hash = "sha256-A3uCSXhX0aFdG47IfwipofqW2jI/RXAJChQUY3V2Z2U=";
+    hash = "sha256-DC7Syy3pj7kwwp/cmsmRqvcuKp5drT0OLLZq8p7hUyo=";
   };
 
   nativeBuildInputs = [
@@ -65,6 +65,16 @@ stdenv.mkDerivation rec {
       --replace-fail "juce::juce_recommended_lto_flags" "" \
       --replace-fail "_artefacts/LV2/" "_artefacts/Release/LV2/" \
       --replace-fail "_artefacts/VST3/" "_artefacts/Release/VST3/"
+
+    # Drumlabooh only scans a hardcoded list of FHS paths (/usr/share/drumlabooh-kits,
+    # ~/drum_sklad, etc.) for drum kits; it has no notion of the Nix store. The kits
+    # this derivation installs end up at $out/share/drumlabooh-kits, which is never in
+    # that list, so the plugin can't find them. Bake the store path into the scan list.
+    substituteInPlace Source/kits.cpp \
+      --replace-fail \
+        'v_kits_locations.push_back ("/usr/share/drumlabooh-kits");' \
+        'v_kits_locations.push_back ("/usr/share/drumlabooh-kits");
+  v_kits_locations.push_back ("'"$out"'/share/drumlabooh-kits");'
   '';
 
   cmakeFlags = [

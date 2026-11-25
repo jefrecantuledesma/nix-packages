@@ -1,2 +1,2 @@
 { pkgs ? import <nixpkgs> { config.allowUnfree = true; } }:
-pkgs.callPackage ./mixbus.nix {}
+pkgs.callPackage ./mixbus11.nix {}
