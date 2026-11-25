@@ -63,9 +63,9 @@ let
         aarch64-linux = "sha256-I0cddfSYFPpzTZSpkNHmxhRBrvBAPnuUVxsJ6fsY9Rs=";
       };
       pdfcraft = {
-        version = "0.21.0";
+        version = "0.22.0";
         description = "Read, organize, combine, split and secure PDFs";
-        x86_64-linux = "sha256-eajHbiOtbmcd47hWpHaTavwAD4qn/v/xkNQ95i+jW6E=";
+        x86_64-linux = "sha256-qJk/nuluh6zOz5CvQib/YKhLnheHrp/Y+kj/4Tlrw14=";
         aarch64-linux = "sha256-HNeaGE1YqiOS+9wAdWDjk5h42W8SssBslvTzhfxhPQk=";
       };
       photocraft = {
